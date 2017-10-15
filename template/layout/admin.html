@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>车装甲管理系统</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="/style/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- MetisMenu CSS -->
+    <link href="/style/css/plugins/metisMenu/metisMenu.min.css" rel="stylesheet">
+
+    <!-- Timeline CSS -->
+    <link href="/style/css/plugins/timeline.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="/style/css/sb-admin-2.css" rel="stylesheet">
+
+    <!-- Morris Charts CSS -->
+    <link href="/style/css/plugins/morris.css" rel="stylesheet">
+
+    <link href="/style/css/chosen.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="/style/font-awesome-4.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="/style/css/jquery.confirm.css" type="text/css" media="screen" />
+    {% block css %}{% endblock %}
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body style="font-family: 'microsoft yahei', arial">
+
+<div id="wrapper">
+    <!-- Navigation -->
+    <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            {% if admin.roles=='W' %}
+            <a class="navbar-brand" href="#">车装甲管理系统</a>
+            {% else %}
+            <a class="navbar-brand" href="/admin">车装甲管理系统</a>
+            {% endif %}
+            <a class="navbar-brand" href="javascript:void(0);" id="controlLeft">隐藏左栏</a>
+        </div>
+
+        <ul class="nav navbar-top-links navbar-right">
+            <li>
+                <a href="#">
+                    <i class="fa fa-user fa-fw"></i> {{admin.realname}} <i class="fa fa-caret-down"></i>
+                </a>
+            </li>
+            <li>
+                <a href="/admin/logout">
+                    <i class="fa fa-power-off fa-fw"></i> 退出 <i class="fa fa-caret-down"></i>
+                </a>
+            </li>
+        </ul>
+
+        <div class="navbar-default sidebar" id="leftTree" role="navigation">
+            <div class="sidebar-nav navbar-collapse">
+                <ul class="nav" id="side-menu">
+                    <li {% if active=='saler' or active=='referee' or active=='store' or active=='admin_user'
+                        or active=='user' or active=="admin_referee"%} class="active"{% endif %} ">
+                    <a href="#"><i class="fa fa-user fa-fw"></i>&nbsp;&nbsp;&nbsp;用户管理
+                        <span class="fa arrow"></span></a>
+                    <ul class="nav nav-second-level">
+                        {% if 'W' not in admin.roles %}
+                        <li >
+                            <a {% if active=='user' %} class="active"{% endif %} href="/admin/user">客户账户</a>
+                        </li>
+                        <li >
+                            <a {% if active=='saler' %} class="active"{% endif %} href="/admin/saler">经销商</a>
+                        </li>
+                        {% endif %}
+                        <li>
+                            <a {% if active=='store' %} class="active"{% endif %} href="/admin/store">修理厂</a>
+                        </li>
+                        <li>
+                            <a {% if active=='admin_user' %}class="active" {% endif %}href="/admin/admin_user/{{handler.get_admin_user().id}}">后台用户</a>
+                        </li>
+                        {% if 'W' not in admin.roles %}
+                        <li>
+                            <a {% if active=='admin_referee' %}class="active" {% endif %}href="/admin/admin_referee">推广人员管理</a>
+                        </li>
+                        {% endif %}
+                    </ul>
+                    </li>
+
+                    {% if 'W' not in admin.roles %}
+                    <li {% if active=='block' or active=='ads' or active=='hot_search' or active=='pa' %} class="active" {%endif %}>
+                        <a  href="#"><i class="fa fa-briefcase fa-fw"></i>&nbsp;&nbsp;&nbsp;App管理
+                            <span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level">
+                            <li>
+                                <a {% if active=='block' %}class="active"{% endif %} href="/admin/block">广告位管理</a>
+                            </li>
+                            <li>
+                                <a {% if active=='ads' %}class="active"{% endif %} href="/admin/advertisement">广告管理</a>
+                            </li>
+                            <li>
+                                <a {% if active=='hot_search' %}class="active"{% endif %} href="/admin/hot_search">热门搜索</a>
+                            </li>
+                            <li>
+                                <a {% if active=='pa' %}class="active"{% endif %} href="/admin/promotion_ambassador">推广大使</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li {% if active=='category' or active=='brand' or active=='product_n'  or
+                        active=='product_s' or active=='c_b' or active=='p_product' %}class="active"{% endif %}>
+                        <a  href="#"><i class="fa fa-picture-o fa-fw"></i>&nbsp;&nbsp;&nbsp;商品管理
+                            <span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level">
+                            <li>
+                                <a {% if active=='category' %} class="active"{% endif %} href="/admin/category">商品分类</a>
+                            </li>
+                            <li>
+                                <a {% if active=='brand' %} class="active"{% endif %} href="/admin/brand">商品品牌</a>
+                            </li>
+                            <li>
+                                <a {% if active=='c_b' %} class="active"{% endif %} href="/admin/category_brand">分类&品牌</a>
+                            </li>
+                            <li>
+                                <a {% if active=='p_product' %} class="active"{% endif %} href="/admin/plateform_product/0?status=1">平台商品</a>
+                            </li>
+                            <li>
+                                <a {% if active=='product_n' %} class="active"{% endif %} href="/admin/product/0?status=1">普通商品</a>
+                            </li>
+                            <li>
+                                <a {% if active=='product_s' %} class="active"{% endif %} href="/admin/product/1?status=1">积分商品</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li {% if active=='payback' or active == 'withdraw' or active == 'statement'%}class="active"{% endif %}>
+                    <a  href="#"><i class="fa fa-qrcode fa-fw"></i>&nbsp;&nbsp;&nbsp;财务对账
+                        <span class="fa arrow"></span></a>
+                    <ul class="nav nav-second-level">
+                        <li>
+                            <a {% if active=='withdraw' %}class="active"{% endif %} href="/admin/withdraw">提现处理</a>
+                        </li>
+                        <li>
+                        <a {% if active=='statement' %}class="active"{% endif %} href="/admin/financial_statement">财务报表</a>
+                        </li>
+                    </ul>
+                    </li>
+                    {% endif %}
+                    <li {% if active=='p_order' or active=='p_order_a' or active=='i_order' or active=='i_order_a'
+                        %}class="active"{% endif %}>
+                        <a href="#"><i class="fa fa-align-justify fa-fw"></i>&nbsp;&nbsp;&nbsp;订单管理
+                            <span class="fa arrow"></span>
+                        </a>
+                        <ul class="nav nav-second-level">
+                            <li>
+                                <a {% if active=='i_order' %}class="active"{% endif %} href="/admin/insurance_orders">保险订单</a>
+                            </li>
+                            <li>
+                                <a {% if active=='i_order_a' %}class="active"{% endif %} href="/admin/insurance_orders?archive=1">保险订单归档</a>
+                            </li>
+                            {% if 'W' not in admin.roles %}
+                            <li>
+                                <a {% if active=='p_order' %}class="active"{% endif %} href="/admin/product_orders">商品订单</a>
+                            </li>
+                            <li>
+                                <a {% if active=='p_order_a' %}class="active"{% endif %} href="/admin/product_orders?archive=1&status=-2">商品订单归档</a>
+                            </li>
+                            {% endif %}
+                        </ul>
+                    </li>
+                    {% if 'W' not in admin.roles %}
+                    <li {% if active=='insurance' or active=='insurance_area' or active=='i_set'
+                        %}class="active"{% endif %}>
+                        <a href="#"><i class="fa fa-yen fa-fw"></i>&nbsp;&nbsp;&nbsp;保险业务
+                            <span class="fa arrow"></span>
+                        </a>
+                        <ul class="nav nav-second-level">
+                            <li>
+                                <a {% if active=='insurance' %}class="active"{% endif %} href="/admin/insurance">保险公司</a>
+                            </li>
+                            <li>
+                                <a {% if active=='i_set' %}class="active"{% endif %} href="/admin/insurance_set">保险配置</a>
+                            </li>
+                            <li style="display: none;">
+                                <a {% if active=='insurance_area' %}class="active"{% endif %} href="/admin/insurance_area">开通地域</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li style="display: none;" {% if active=='sk_product' or active=='sk_car'
+                        %}class="active"{% endif %}>
+                        <a href="#"><i class="fa fa-tint fa-fw"></i>&nbsp;&nbsp;&nbsp;SK润滑油
+                            <span class="fa arrow"></span>
+                        </a>
+                        <ul class="nav nav-second-level">
+                            <li>
+                                <a {% if active=='sk_product' %}class="active"{% endif %} href="/admin/sk">SK产品</a>
+                            </li>
+                            <li>
+                                <a {% if active=='sk_car' %}class="active"{% endif %} href="/admin/sk_car">油品映射</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li {% if active=='r_user' or active=='r_summary' or active=='r_sale' or active=='r_product'
+                        or active=='r_log' or active=='r_order' or active=='r_user_order' or active=='r_invoice'
+                        or active=='refereeReport' or active=='insuranceReport' or active=='areaReport'
+                        or active=='tradelist' or active=='insurancesuccess' or active=='insurancethree'
+                        or active=='ioo_time' %}class="active"{% endif %}>
+                        <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i>&nbsp;&nbsp;&nbsp;统计报表<span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level">
+                            <li>
+                                <a {% if active=='insurancethree' %} class="active" {% endif %} href="/admin/export_insurance_three">首三单统计</a>
+                            </li>
+                            <li>
+                                <a {% if active=='refereeReport' %} class="active" {% endif %} href="/admin/export_referee">推广人员出单统计</a>
+                            </li>
+                            <li>
+                                <a {% if active=='areaReport' %} class="active" {% endif %} href="/admin/export_areaorder">地区统计</a>
+                            </li>
+                            <li>
+                                <a {% if active=='insuranceReport' %} class="active" {% endif %} href="/admin/insuranceOrder">保险公司统计</a>
+                            </li>
+                            <li>
+                                <a {% if active=='ioo_time' %} class="active" {% endif %} href="/admin/io_offer_time">客服出单耗时统计</a>
+                            </li>
+                            {% if admin.roles=='D' %}
+                            <li>
+                                <a {% if active=='tradelist' %}class="tradelist"{% endif %} href="/admin/export_trade_list">网站交易明细</a>
+                            </li>
+                            <li>
+                                <a {% if active=='insurancesuccess' %}class="insurancesuccess"{% endif %} href="/admin/export_insurance_success">出单明细</a>
+                            </li>
+                            <li>
+                                <a {% if active=='insuranceOrderReport' %} class="active"{% endif %} href="/admin/report/insuranceOrder">保险公司出单统计</a>
+                            </li>
+                            <li>
+                                <a {% if active=='areaReport' %} class="active"{% endif %} href="/admin/report/areaorder">各地区交易数据统计</a>
+                            </li>
+                            <li>
+                                <a {% if active=='areaReport' %} class="active"{% endif %} href="/admin/report/areaorder">提现统计</a>
+                            </li>
+                            {% endif %}
+                        </ul>
+                    </li>
+                    <li {% if active=='jpush' or active=='msg' or active=='store_mobile' or active=='jp_plan'
+                        %}class="active"{% endif %}>
+                        <a href="#"><i class="fa fa-bolt fa-fw"></i>&nbsp;&nbsp;&nbsp;极光推送
+                            <span class="fa arrow"></span>
+                        </a>
+                        <ul class="nav nav-second-level">
+                            <li>
+                                <a {% if active=='jpush' %} class="active"{% endif %} href="/admin/jpush">活动内容</a>
+                            </li>
+                            <li>
+                                <a {% if active=='msg' %} class="active"{% endif %} href="/admin/send_msg">消息群发</a>
+                            </li>
+                            <li>
+                                <a {% if active=='jp_plan' %} class="active"{% endif %} href="/admin/check_jpush">推送任务</a>
+                            </li>
+                            <li>
+                                <a {% if active=='store_mobile' %} class="active"{% endif %} href="/admin/store_mobile">筛选手机号</a>
+                            </li>
+                        </ul>
+                    </li>
+                     <li {% if active=='servicetype' or active=='servicebox' or active=='serviceproduct'
+                         or active=='servicestore' or active=='servicecategory' or active=='servicecheckhistory'
+                         or active=='serviceType' or active=='sys_act' %}class="active"{% endif %}>
+                        <a href="#"><i class="fa fa-taxi fa-fw"></i>&nbsp;&nbsp;&nbsp;汽车保养管理
+                            <span class="fa arrow"></span>
+                        </a>
+                        <ul class="nav nav-second-level">
+                            <li>
+                                <a {% if active=='serviceproduct' %} class="active"{% endif %} href="/admin/car_service_product">保养配材管理</a>
+                            </li>
+                            <li>
+                                <a {% if active=='servicecategory' %} class="active"{% endif %} href="/admin/car_service_category">保养分类管理</a>
+                            </li>
+                            <li>
+                                <a {% if active=='serviceType' %} class="active"{% endif %} href="/admin/car_service_type">保养单项管理</a>
+                            </li>
+                            <li>
+                                <a {% if active=='servicebox' %} class="active"{% endif %} href="/admin/car_service_box">保养套餐管理</a>
+                            </li>
+                            <li>
+                                <a {% if active=='servicestore' %} class="active"{% endif %} href="/admin/service_store">保养门店管理</a>
+                            </li>
+                            <li>
+                                <a {% if active=='servicecheckhistory' %} class="active"{% endif %} href="/admin/car_service_check_history">核销统计</a>
+                            </li>
+                            <li>
+                                <a {% if active=='sys_act' %} class="active"{% endif %} href="/admin/system_activity">保养活动</a>
+                            </li>
+                        </ul>
+                    </li>
+                    {% endif %}
+                    <li {% if active=='static' or active=='log' or active=='update' or active=='pw'
+                        or active=='pic' %}class="active"{% endif %}>
+                        <a href="#"><i class="fa fa-unlock fa-fw"></i>&nbsp;&nbsp;&nbsp;系统设置
+                            <span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level">
+                            <!--<li>-->
+                            <!--<a {% if active=='static' %} class="active"{% endif %} href="/admin/static">静态页面</a>-->
+                            <!--</li>-->
+                            {% if 'W' not in admin.roles %}
+                            <li>
+                                <a {% if active=='pic' %} class="active"{% endif %} href="/admin/upload_pic">图片上传</a>
+                            </li>
+                            <li>
+                                <a {% if active=='msg' %} class="active"{% endif %} href="/admin/send_msg">消息群发</a>
+                            </li>
+                            <!--<li>-->
+                            <!--<a {% if active=='msg' %} class="active"{% endif %} href="/admin/send_msg">消息群发</a>-->
+                            <!--</li>-->
+                            <!--<li>-->
+                            <!--<a {% if active=='msg' %} class="active"{% endif %} href="/admin/check_jpush">推送任务</a>-->
+                            <!--</li>-->
+                            <li>
+                                <a href="/ajax/weixin_menu">重置微信菜单</a>
+                            </li>
+                            <li>
+                                <a {% if active=='log' %}class="active"{% endif %} href="/admin/log">系统日志</a>
+                            </li>
+                            <li>
+                                <a {% if active=='update' %}class="active"{% endif %} href="/admin/update">更新管理</a>
+                            </li>
+                            {% endif %}
+                            <li>
+                                <a {% if active=='pw' %} class="active"{% endif %} href="/admin/pw">修改密码</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div id="page-wrapper">
+        {% block content %}&nbsp;{% endblock %}
+    </div>
+
+</div>
+
+<script src="/style/js/jquery-1.11.1.min.js"></script>
+<script src="/style/js/chosen.jquery.js"></script>
+<script language="javascript" type="text/javascript" src="/style/js/My97DatePicker/WdatePicker.js"></script>
+<script type="text/javascript">
+    $(function(){
+        var status = 0;
+        $("#controlLeft").click(function() {
+            if (status == 0) {
+                $("#leftTree").hide();
+                $("#controlLeft").html('显示左栏');
+                $("#page-wrapper").css('margin','0');
+                status = 1;
+            }else{
+                $("#leftTree").show();
+                $("#controlLeft").html('隐藏左栏');
+                $("#page-wrapper").css('margin','0 0 0 250px');
+                status = 0;
+            }
+        });
+    });
+    var config = {
+        '.chosen-select': {},
+        '.chosen-select-deselect': { allow_single_deselect: true },
+        '.chosen-select-no-single': { disable_search_threshold: 10 },
+        '.chosen-select-no-results': { no_results_text: 'Oops, nothing found!' },
+        '.chosen-select-width': { width: "95%" }
+    }
+    for (var selector in config) {
+        $(selector).chosen(config[selector]);
+    }
+</script>
+<!-- Bootstrap Core JavaScript -->
+<script src="/style/js/bootstrap.min.js"></script>
+<!-- Metis Menu Plugin JavaScript -->
+<script src="/style/js/plugins/metisMenu/metisMenu.min.js"></script>
+<!-- Custom Theme JavaScript -->
+<script src="/style/js/sb-admin-2.js"></script>
+{% block js %}{% endblock %}
+<script type="text/javascript" src="/style/js/jquery.confirm.js"></script>
+</body>
+
+</html>
