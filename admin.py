@@ -1,7 +1,7 @@
 #!/usr/bin/env python
-# coding=utf8 check git update
+# coding=utf8
 
-
+# 拉拉阿拉
 import sys
 import logging
 import tornado.web
