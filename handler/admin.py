@@ -15,6 +15,7 @@ from tornado.web import asynchronous
 import logging
 
 
+
 # ----------------------------------------------------------应用页面----------------------------------------------------
 @Route(r'/',name='admin_root')    # 公司官网
 class RootHandler(BaseHandler):
