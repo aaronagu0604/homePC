@@ -1,0 +1,167 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE10" />
+	<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0" />
+	<title>车装甲—口袋里的汽车服务专家</title>
+	<link rel="stylesheet" type="text/css" href="style/index_app/css/style.css"/>
+	<script src="style/index_app/js/html5shiv.min.js"></script>
+	<script src="style/index_app/js/jquery-1.9.1.min.js"></script>
+	<script src="style/index_app/js/parallax.js"></script>
+	<script type="text/javascript" src="style/index_app/js/device.min.js"></script>
+	<script type="text/javascript">
+        if(navigator.platform.indexOf('Win32')!=-1){
+            //window.location.href="http://www.520czj.com";
+        }else{
+            //移动端
+            window.location.href="http://www.520czj.com/m_index";
+        }
+	</script>
+	<!--[if IE 6]><script type="text/javascript" src="style/index_app/js/DD_belatedPNG.js"></script><![endif]-->
+	<!--[if IE 6]>
+	<script type="text/javascript">
+		DD_belatedPNG.fix("img");
+	</script>
+	<![endif]-->
+	<!--[if lte IE 9]>
+	<style type="style/index_app/css">
+		.top{
+			background:transparent;
+			zoom:1;
+		}
+	</style>
+	<![endif]-->
+
+	<!--[if lte IE 8]>
+	<noscript>
+		<style>.html5-wrappers{display:none!important;}</style>
+		<div class="ie-noscript-warning">您的浏览器禁用了脚本，请<a href="">查看这里</a>来启用脚本!或者<a href="/?noscript=1">继续访问</a>.
+		</div>
+	</noscript>
+	<![endif]-->
+</head>
+<body>
+
+<ul class="fixedNav">
+	<li class="cur">
+		<em class="icon"></em>
+		<span class="txt">首&nbsp;&nbsp;&nbsp;&nbsp;页</span>
+	</li>
+	<li>
+		<em class="icon"></em>
+		<span class="txt">服务平台</span>
+	</li>
+	<li>
+		<em class="icon"></em>
+		<span class="txt">分类明确</span>
+	</li>
+	<li>
+		<em class="icon"></em>
+		<span class="txt">精品推荐</span>
+	</li>
+	<li>
+		<em class="icon"></em>
+		<span class="txt">联系我们</span>
+	</li>
+</ul>
+<div class="wrapBox" id="wrapBox">
+	<div class="box b1_bg">
+		<div class="top">
+			<img src="style/index_app/images/heng_logo.png" />
+			<ul class="top_nav">
+				<li class="color">车装甲&nbsp;(&nbsp;商家版&nbsp;)</li>
+				<li class="about"><a href="javascript:void(0)" class="cur">关于我们</a></li>
+				<li class="kfdh">客服电话：400-6666-717</li>
+				{% if user%}
+				<li class="li_login"><a href="/signout">退出&nbsp;</a> </li>
+				{% else %}
+				<!--<li class="li_login"><a href="/login" target="_black">企业管理</a></li>-->
+				{% endif %}
+                <li class="tpms" style="width:15%""><a href="/style/czj_tpms.apk">胎压app下载</a> </li>
+			</ul>
+		</div>
+		<div class="title01">
+			<div class="ios_andr">
+				<span class="sjb">车装甲&nbsp;(<i>&nbsp;商家版&nbsp;</i>)</span>
+				<a href="https://itunes.apple.com/cn/app/che-zhuang-jia-shang-jia-ban/id1130232175?mt=8" target="_black"><div class="idw">
+					<span>IOS下载</span>
+				</div></a>
+				<a href="http://a.app.qq.com/o/simple.jsp?pkgname=com.chezhuangjia.carapp" target="_black"><div class="adw">
+					<span>Android下载</span>
+				</div></a>
+				<div class="erma">
+					<img src="style/index_app/images/erweima.png" />
+				</div>
+				<span class="sm">
+					<pre>扫描二维码免费下载</pre>
+				</span>
+			</div>
+		</div>
+	</div>
+	<!---->
+	<!--<div class="box b2_bg">-->
+		<!--<div class="title02">-->
+			<!--<img src="style/index_app/images/phone_01.png" />-->
+		<!--</div>-->
+	<!--</div>-->
+	<!---->
+	<div class="box b3_bg">
+		<div class="title03">
+			<img src="style/index_app/images/phone_02.png" />
+		</div>
+	</div>
+	<div class="box b4_bg">
+		<div class="title04">
+			<img src="style/index_app/images/phone_03.png" />
+			<!--<span class="jrwm">加入我们</span>-->
+		</div>
+	</div>
+	<div class="box b5_bg" id="about">
+
+		<div class="title05">
+			<ul>
+				<a class="tooltip" href="#" onclick="return false;"
+				><li class="tel tel_left"><pre class="ms01">TEL</pre><pre class="ms02">400-6666-717</pre></li></a>
+
+				<a class="tooltip" href="#" onclick="return false;"
+				><li class="tel wx"><pre class="ms01 wx_color">Wechat</pre><pre class="ms02">车装甲汽车生活</pre><span class="tooltip-content"><img src="style/index_app/images/erweima_wx.png" /></span></li></a>
+
+				<a class="tooltip" href="#" onclick="return false;"
+				><li class="tel qq"><pre class="ms01 qq_color">QQ</pre><pre class="ms02" style="left: -5px;">车装甲QQ群</pre><span class="tooltip-content"><img src="style/index_app/images/erweima_qq.png" /></span></li></a>
+
+				<a class="tooltip" href="#" onclick="return false;"
+				><li class="tel mail"><pre class="ms01 mail_color">E-mail</pre><pre class="ms02">czj@520czj.com</pre></li></a>
+
+				<a class="a_back" href="javascript:void(0)"><span class="back_top"><img src="style/index_app/images/up_before.png"/></span></a>
+			</ul>
+
+			<img class="foot_bj" src="style/index_app/images/foot_bj.jpg" />
+			<div class="foot_dz">
+				<!--<p class="dz01">公司地址：西安市碑林区金花南路立丰国际公寓407室</p>-->
+				<p class="dz01">Copyright&copy;2016&nbsp;车装甲公司版权所有&nbsp;京ICP备1600154号-1</p>
+			</div>
+		</div>
+	</div>
+
+
+</div>
+<script>
+    //document.body.style.overflow = 'hidden';
+    var ie6 = !-[1,]&&!window.XMLHttpRequest;
+    ie6 || loadImg.init();
+</script>
+<script type="text/javascript" src="style/index_app/js/audio.js"></script>
+<script>
+    window.addEventListener("DOMContentLoaded", function(){
+        playbox.init("playbox");
+    }, false);
+</script>
+
+<span id="playbox" class="btn_music" onClick="playbox.init(this).play();">
+		<audio src="1.mp3" loop id="audio"></audio></span>
+<script>
+    playbox.init(document.getElementById('playbox')).play();
+</script>
+</body>
+</html>
