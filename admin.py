@@ -11,7 +11,7 @@ from lib.bootloader import settings, jinja_environment, memcachedb
 from lib.filter import register_filters
 from lib.route import Route
 from lib.session import MemcacheSessionStore
-from handler import AdminPageNotFoundHandler, admin
+from handler import AdminPageNotFoundHandler, admin, high_concurrency
 
 
 class Application(tornado.web.Application):
