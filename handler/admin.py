@@ -18,6 +18,7 @@ class IndexMHandler(BaseHandler):
         self.render("index_m.html")
 
 
+
 @Route(r'/admin/upload_pic', name='admin_upload_pic')    # 图片上传
 class UploadPicHandler(BaseHandler):
     def get(self):
