@@ -9,14 +9,7 @@ from lib.route import Route
 @Route(r'/',name='admin_root')    # 公司官网
 class RootHandler(BaseHandler):
     def get(self):
-        self.render("index.html")
-
-
-@Route(r'/m_index', name='m_index')  # APP宣传页面移动端
-class IndexMHandler(BaseHandler):
-    def get(self):
-        self.render("index_m.html")
-
+        self.render("personal/index.html")
 
 
 @Route(r'/admin/upload_pic', name='admin_upload_pic')    # 图片上传
